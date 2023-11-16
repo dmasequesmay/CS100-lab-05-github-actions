@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [ main, dmasequesmay/failing_tests ]
+    branches: [ main, dmasequesmay/ci_setup, dmasequesmay/passing_tests, dmasequesmay/failing_tests ]
   pull_request:
     branches: [ main ]
     # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -15,13 +15,14 @@ jobs:
     steps: 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        submodules: recursive # to copy gtest over
+    
+    - name: create make and cmake
+      run: mkdir build && cd build && cmake ..
+      
+    - name: build makefile
+      run: cmake --build build
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: run tests
+      run: cd build && ./test
