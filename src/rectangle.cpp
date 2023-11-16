@@ -19,9 +19,9 @@ void Rectangle::set_height(int h) {
 }
 
 int Rectangle::area() {
-    return this->width + this->height;
+    return -1;
 }
 
 int Rectangle::perimeter() {
-    return (this->width + this->height);
+    return -1;
 }
