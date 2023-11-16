@@ -1,3 +1,6 @@
+#include "gtest/gtest.h"
+#include "../header/rectangle.hpp"
+
 TEST (Constructor, noParameters) {
     Rectangle *aRectangle = new Rectangle();
     EXPECT_EQ (aRectangle->area(), 0);
